@@ -1,0 +1,4 @@
+rootProject.name = 'quick-n-dirty'
+
+include 'quick-n-dirty-ds'
+
