@@ -8,7 +8,7 @@ import java.util.Map;
 
 public final class LocalCache<K, V> implements Cache<K, V> {
 
-    private static final int MAX_CAPACITY = 1 << 30;
+    private static final int MAX_SIZE = (1 << 30) - 1;
 
     private final Map<K, CacheNode<K, V>> cache;
     private final CachePolicy<K, V> policy;
@@ -34,6 +34,9 @@ public final class LocalCache<K, V> implements Cache<K, V> {
     }
 
     private void validate() {
+        if (policy.getMaxSize() > MAX_SIZE)
+            throw new IllegalArgumentException("MaxSize too high");
+
         if (policy.evict() && policy.getMaxSize() == CachePolicy.UNBOUNDED)
             throw new IllegalArgumentException("Eviction cannot be applied for unbounded cache");
 
