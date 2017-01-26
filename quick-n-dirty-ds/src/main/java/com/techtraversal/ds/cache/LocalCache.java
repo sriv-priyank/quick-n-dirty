@@ -76,12 +76,17 @@ public final class LocalCache<K, V> implements Cache<K, V> {
         CacheNode<K, V> node = getNode(key);
         if (node == null)  return null;
 
+        removeNode(node);
         policy.afterNodeRemoval(node);
         return node.val();
     }
 
 
     //////////// internal methods /////////////
+
+    private void removeNode(CacheNode<K, V> node) {
+        this.cache.remove(node.key());
+    }
 
     private CacheNode<K, V> getNode(K key) {
         return this.cache.get(key);
@@ -95,7 +100,7 @@ public final class LocalCache<K, V> implements Cache<K, V> {
         if (policy.evict() && (size() > policy.getMaxSize())) {
             CacheNode<K, V> node = policy.getEvictionCandidate();
             if (node != null) {
-                remove(node.key());
+                removeNode(node);
             }
         }
     }
