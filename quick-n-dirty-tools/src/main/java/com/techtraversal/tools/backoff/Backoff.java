@@ -1,13 +1,11 @@
 package com.techtraversal.tools.backoff;
 
-
 import com.techtraversal.tools.tmp.BackOff;
 
-import java.io.IOException;
 
 public interface Backoff {
 
-    static final long STOP = -1L;
+    long STOP = -1L;
 
     void reset();
 
