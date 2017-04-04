@@ -1,8 +1,5 @@
 package com.techtraversal.tools.backoff;
 
-import com.techtraversal.tools.tmp.BackOff;
-
-
 public interface Backoff {
 
     long STOP = -1L;
@@ -11,11 +8,11 @@ public interface Backoff {
 
     long nextInterval();
 
-    BackOff NONE = new BackOff() {
+    Backoff NONE = new Backoff() {
 
         public void reset() {}
 
-        public long nextBackOffMillis() {
+        public long nextInterval() {
             return 0;
         }
     };

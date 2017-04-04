@@ -35,13 +35,14 @@ public final class ExponentialBackoff implements Backoff {
             return STOP;
         }
 
+        long curr = this.currentInterval;
         if (this.currentInterval >= this.maxInterval / this.factor)
             this.currentInterval = this.maxInterval;
         else
             this.currentInterval *= this.factor;
 
         this.elapsedTime += this.currentInterval;
-        return this.currentInterval;
+        return curr;
     }
 
     /////////////////////////////////////////////////////////////////
